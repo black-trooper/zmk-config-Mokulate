@@ -1,5 +1,6 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
 
 / {
     keymap {
@@ -7,10 +8,10 @@
 
         default_layer {
             bindings = <
-&kp Q             &kp W      &kp E         &kp R                          &kp T        &none                    &none    &kp Y        &kp U  &kp I      &kp O    &kp P
-&kp A             &kp S      &kp D         &kp F                          &kp G        &none                    &none    &kp H        &kp J  &kp K      &kp L    &kp SEMICOLON
-&mt LEFT_SHIFT Z  &kp X      &kp C         &kp V                          &kp B        &none                    &none    &kp N        &kp M  &kp COMMA  &kp DOT  &mt RIGHT_SHIFT SLASH
-&kp LG(F22)       &kp LCTRL  &kp LEFT_ALT  &mt LEFT_WIN INTERNATIONAL_5   &lt 1 SPACE  &lt 3 INTERNATIONAL_4    &kp TAB  &lt 2 ENTER  &none  &none      &none    &lt 4 ESCAPE
+&kp ESC    &kp Q     &kp W     &kp E                  &kp R        &kp T                    &kp Y     &kp U      &kp I      &kp O     &kp P      &kp MINUS
+&kp TAB    &kp A     &kp S     &kp D                  &kp F        &kp G                    &kp H     &kp J      &kp K      &kp L     &kp SEMI   &kp APOS
+&kp LSHFT  &kp Z     &kp X     &kp C                  &kp V        &kp B                    &kp N     &kp M      &kp COMMA  &kp DOT   &kp FSLH   &kp RSHFT
+&kp LCTRL  &kp LALT  &kp LGUI  &lt 1 INTERNATIONAL_5  &lt 2 SPACE  &lt 3 INTERNATIONAL_4    &kp BSPC  &kp ENTER  &kp RGUI   &kp RALT  &kp RCTRL  &lt 4 DEL
             >;
         };
 
@@ -43,10 +44,10 @@
 
         BLUETOOTH {
             bindings = <
-&none   &none   &none   &none   &none   &none     &none   &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4 
-&none   &none   &none   &none   &none   &none     &none   &none          &none          &none          &none          &bt BT_CLR
-&none   &none   &none   &none   &none   &none     &none   &none          &none          &none          &none          &bt BT_CLR_ALL
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans         &none          &none          &none          &trans
+&none   &none   &none   &none   &none   &none     &none   &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
+&none   &none   &none   &none   &none   &none     &none   &none         &none         &none         &none         &bt BT_CLR
+&none   &none   &none   &none   &none   &none     &none   &none         &none         &none         &none         &bt BT_CLR_ALL
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans        &none         &none         &none         &trans
             >;
         };
     };
