@@ -19,10 +19,10 @@
 #
 ---
 include:
-  - board: seeeduino_xiao_ble
+  - board: xiao_ble
     shield: Mokulate_left
-  - board: seeeduino_xiao_ble
+  - board: xiao_ble
     shield: Mokulate_right
     snippet: studio-rpc-usb-uart
-  - board: seeeduino_xiao_ble
+  - board: xiao_ble
     shield: settings_reset
