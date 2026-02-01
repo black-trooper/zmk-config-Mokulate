@@ -73,5 +73,8 @@
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
+        input-processors = 
+            <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP)>, // XとYを入れ替える
+            <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>; // 上下左右を合わせるためXを反転
     };
 };
