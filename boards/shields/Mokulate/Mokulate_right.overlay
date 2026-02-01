@@ -27,22 +27,24 @@
 
 
 // PAW3222 Trackball Configuration
-// Wiring: CS=P1.10, MOTION=P0.09, SDIO=P1.00, SCLK=P0.16
+// Wiring: CS=GND, MOTION=P0.10, SDIO=P0.09, SCLK=P1.11
 
 &pinctrl {
     spi3_default: spi3_default {
         group1 {
+            /* SCLK: D6 (P1.11) */
+            /* SDIO: NFC1 (P0.09) を MOSI/MISO 両方に割り当て */
             psels = <NRF_PSEL(SPIM_SCK, 1, 11)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 16)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 16)>;
+                    <NRF_PSEL(SPIM_MOSI, 0, 9)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 9)>;
         };
     };
 
     spi3_sleep: spi3_sleep {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 1, 11)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 16)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 16)>;
+                    <NRF_PSEL(SPIM_MOSI, 0, 9)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 9)>;
             low-power-enable;
         };
     };
@@ -54,14 +56,15 @@
     pinctrl-0 = <&spi3_default>;
     pinctrl-1 = <&spi3_sleep>;
     pinctrl-names = "default", "sleep";
-    cs-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
+
 
     trackball: trackball@0 {
         status = "okay";
         compatible = "pixart,paw3222";
         reg = <0>;
         spi-max-frequency = <2000000>;
-        irq-gpios = <&gpio1 0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        /* MOTION: NFC2 (P0.10) */
+        irq-gpios = <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 };
 
