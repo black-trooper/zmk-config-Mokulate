@@ -1,6 +1,8 @@
 #include "Mokulate.dtsi"
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
+#include <input/processors/runtime-input-processor.dtsi>
+#include <behaviors/battery_history_request.dtsi>
 
 &default_transform {
     col-offset = <6>;
@@ -75,6 +77,8 @@
         device = <&trackball>;
         input-processors = 
             <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP)>, // XとYを入れ替える
-            <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>; // 上下左右を合わせるためXを反転
+            <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>, // 上下左右を合わせるためXを反転
+            <&mouse_runtime_input_processor>;
+        };
     };
 };
