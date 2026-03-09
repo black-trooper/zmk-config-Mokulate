@@ -19,10 +19,10 @@
 #
 ---
 include:
-  - board: seeed_xiao_ble/zmk
+  - board: xiao_ble/zmk
     shield: Mokulate_left
-  - board: seeed_xiao_ble/zmk
+  - board: xiao_ble/zmk
     shield: Mokulate_right
     snippet: studio-rpc-usb-uart
-  - board: seeed_xiao_ble/zmk
+  - board: xiao_ble/zmk
     shield: settings_reset
