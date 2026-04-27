@@ -9,5 +9,9 @@ manifest:
       remote: zmkfirmware
       revision: main
       import: app/west.yml
+    - name: zmk-module-battery-history
+      revision: main
+      url: https://github.com/cormoran/zmk-module-battery-history
+      path: modules/zmk-module-battery-history
   self:
     path: config
