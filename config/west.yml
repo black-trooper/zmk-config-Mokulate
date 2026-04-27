@@ -4,14 +4,15 @@ manifest:
       url-base: https://github.com/zmkfirmware
     # Additional modules containing boards/shields/custom code can be listed here as well
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
+    - name: sekigon-gonnoc
+      url-base: https://github.com/sekigon-gonnoc
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
-    - name: zmk-module-battery-history
+    - name: zmk-feature-non-lipo-battery-management
+      remote: sekigon-gonnoc
       revision: main
-      url: https://github.com/cormoran/zmk-module-battery-history
-      path: modules/zmk-module-battery-history
   self:
     path: config
