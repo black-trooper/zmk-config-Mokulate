@@ -76,8 +76,28 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9) 
         >;
     };
 
-    kscan0: kscan0 {
+    kscan0: kscan_composite {
+        compatible = "zmk,kscan-composite";
+        rows = <4>;
+        columns = <6>;
+
+        matrix_a {
+            kscan = <&kscan_matrix_a>;
+        };
+
+        matrix_b {
+            kscan = <&kscan_matrix_b>;
+            column-offset = <3>;
+        };
+    };
+
+    kscan_matrix_a: kscan_matrix_a {
         compatible = "zmk,kscan-gpio-matrix";
         diode-direction = "col2row";
+    };
+
+    kscan_matrix_b: kscan_matrix_b {
+        compatible = "zmk,kscan-gpio-matrix";
+        diode-direction = "row2col";
     };
 };
