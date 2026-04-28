@@ -1,4 +1,6 @@
 #include "Mokulate.dtsi"
+#include <input/processors.dtsi>
+#include <dt-bindings/zmk/input_transform.h>
 
 &default_transform {
     col-offset = <6>;
@@ -33,3 +35,58 @@
 };
 
 &xiao_serial { status = "disabled"; };
+
+// PAW3222 Trackball Configuration
+// Wiring: CS=GND, MOTION=P1.13, SDIO=P1.14, SCLK=P1.15 v2.1
+// Wiring: CS=GND, MOTION=P0.29, SDIO=P0.28, SCLK=P0.03 v2.0
+// Wiring: CS=GND, MOTION=P0.10, SDIO=P0.09, SCLK=P1.11 prototype
+
+&pinctrl {
+    spi3_default: spi3_default {
+        group1 {
+            /* SCLK: D6 (P1.11) */
+            /* SDIO: NFC1 (P0.09) を MOSI/MISO 両方に割り当て */
+            psels = <NRF_PSEL(SPIM_SCK, 0, 3)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 28)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 28)>;
+        };
+    };
+
+    spi3_sleep: spi3_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 3)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 28)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 28)>;
+            low-power-enable;
+        };
+    };
+};
+
+&spi3 {
+    status = "okay";
+    compatible = "nordic,nrf-spim";
+    pinctrl-0 = <&spi3_default>;
+    pinctrl-1 = <&spi3_sleep>;
+    pinctrl-names = "default", "sleep";
+
+
+    trackball: trackball@0 {
+        status = "okay";
+        compatible = "pixart,paw3222";
+        reg = <0>;
+        spi-max-frequency = <2000000>;
+        /* MOTION: D3 (P0.29) */
+        irq-gpios = <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+    };
+};
+
+// Trackball input listener (central side - direct processing)
+/ {
+    trackball_listener: trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+        input-processors = 
+            <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP)>, // XとYを入れ替える
+            <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>; // 上下左右を合わせるためXを反転
+    };
+};
