@@ -4,12 +4,6 @@
 / {
     chosen {
         zmk,physical-layout = &physical_layout0;
-        zmk,battery = &non_lipo_battery;
-    };
-
-    non_lipo_battery: non_lipo_battery {
-        compatible = "zmk,non-lipo-battery";
-        io-channels = <&adc 0>;  // 使用するADCチャンネル
     };
 
     physical_layout0: physical_layout_0 {
