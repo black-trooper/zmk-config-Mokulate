@@ -1,33 +1,5 @@
 #include "Mokulate.dtsi"
 
-&kscan_matrix_a {
-    col-gpios
-        = <&xiao_d 8 GPIO_ACTIVE_HIGH>   /* Col0 */
-        , <&xiao_d 9 GPIO_ACTIVE_HIGH>   /* Col1 */
-        , <&xiao_d 10 GPIO_ACTIVE_HIGH>  /* Col2 */
-        ;
-    row-gpios
-        = <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* Row0 */
-        , <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* Row1 */
-        , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* Row2 */
-        , <&xiao_d 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* Row3 */
-        ;
-};
-
-&kscan_matrix_b {
-    col-gpios
-        = <&xiao_d 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   /* Col0 */
-        , <&xiao_d 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   /* Col1 */
-        , <&xiao_d 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* Col2 */
-        ;
-    row-gpios
-        = <&xiao_d 4 GPIO_ACTIVE_HIGH>  /* Row0 */
-        , <&xiao_d 5 GPIO_ACTIVE_HIGH>  /* Row1 */
-        , <&xiao_d 6 GPIO_ACTIVE_HIGH>  /* Row2 */
-        , <&xiao_d 7 GPIO_ACTIVE_HIGH>  /* Row3 */
-        ;
-};
-
 / {
     chosen {
         zmk,battery = &non_lipo_battery;

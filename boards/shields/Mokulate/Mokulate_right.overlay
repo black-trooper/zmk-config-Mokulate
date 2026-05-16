@@ -2,61 +2,32 @@
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
+// Right half is the peripheral. Shift charlieplex passive index by 6 so the
+// transform map in Mokulate.dtsi covers both sides in one 6x12 grid.
 &default_transform {
     col-offset = <6>;
-};
-
-&kscan_matrix_a {
-    col-gpios
-        = <&xiao_d 10 GPIO_ACTIVE_HIGH>  /* Col0 */
-        , <&xiao_d 9 GPIO_ACTIVE_HIGH>   /* Col1 */
-        , <&xiao_d 8 GPIO_ACTIVE_HIGH>   /* Col2 */
-        ;
-    row-gpios
-        = <&xiao_d 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* Row0 */
-        , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* Row1 */
-        , <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* Row2 */
-        , <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* Row3 */
-        ;
-};
-
-&kscan_matrix_b {
-    col-gpios
-        = <&xiao_d 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* Col0 */
-        , <&xiao_d 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   /* Col1 */
-        , <&xiao_d 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   /* Col2 */
-        ;
-    row-gpios
-        = <&xiao_d 7 GPIO_ACTIVE_HIGH>  /* Row0 */
-        , <&xiao_d 6 GPIO_ACTIVE_HIGH>  /* Row1 */
-        , <&xiao_d 5 GPIO_ACTIVE_HIGH>  /* Row2 */
-        , <&xiao_d 4 GPIO_ACTIVE_HIGH>  /* Row3 */
-        ;
 };
 
 &xiao_serial { status = "disabled"; };
 
 // PAW3222 Trackball Configuration
-// Wiring: CS=GND, MOTION=P1.13, SDIO=P1.14, SCLK=P1.15 v2.1
-// Wiring: CS=GND, MOTION=P0.29, SDIO=P0.03, SCLK=P0.28 v2.0
-// Wiring: CS=GND, MOTION=P0.10, SDIO=P0.09, SCLK=P1.11 prototype
-
+// Wiring: CS=GND, MOTION=P1.13, SDIO=P1.14, SCLK=P1.15 (v2.1)
+// Wiring: CS=GND, MOTION=P0.29, SDIO=P0.03, SCLK=P0.28 (v2.0)
+// Wiring: CS=GND, MOTION=P0.10, SDIO=P0.09, SCLK=P1.11 (prototype)
 &pinctrl {
     spi3_default: spi3_default {
         group1 {
-            /* SCLK: D6 (P1.11) */
-            /* SDIO: NFC1 (P0.09) を MOSI/MISO 両方に割り当て */
-            psels = <NRF_PSEL(SPIM_SCK, 0, 28)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 3)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 3)>;
+            psels = <NRF_PSEL(SPIM_SCK, 1, 15)>,    /* P1.15 */
+                    <NRF_PSEL(SPIM_MOSI, 1, 14)>,   /* P1.14 (SDIO: MOSI/MISO shorted) */
+                    <NRF_PSEL(SPIM_MISO, 1, 14)>;   /* P1.14 */
         };
     };
 
     spi3_sleep: spi3_sleep {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 28)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 3)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 3)>;
+            psels = <NRF_PSEL(SPIM_SCK, 1, 15)>,
+                    <NRF_PSEL(SPIM_MOSI, 1, 14)>,
+                    <NRF_PSEL(SPIM_MISO, 1, 14)>;
             low-power-enable;
         };
     };
@@ -75,8 +46,8 @@
         compatible = "pixart,paw3222";
         reg = <0>;
         spi-max-frequency = <2000000>;
-        /* MOTION: D3 (P0.29) */
-        irq-gpios = <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        /* MOTION: P1.13 */
+        irq-gpios = <&gpio1 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 };
 
@@ -85,7 +56,7 @@
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        input-processors = 
+        input-processors =
             <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP)>, // XとYを入れ替える
             <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>; // 上下左右を合わせるためXを反転
     };
