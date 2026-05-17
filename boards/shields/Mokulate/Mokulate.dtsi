@@ -64,23 +64,30 @@
             ;
     };
 
-    // Charlieplex matrix transform (derived from Mokulate v2.1 schematic + on-device log).
+    // Charlieplex matrix transform (derived from on-device measurement on the right half).
     // gpios index 0..5 = D2..D7. RC(active, passive) = (active_idx, passive_idx).
     // Right half adds col-offset=6 in Mokulate_right.overlay, so passive 0..5 reported by
     // the right kscan becomes 6..11 in this map.
-    // U numbering follows the v2.1 schematic.
-    // Left  cols 0..5 = U1..U6 / U7..U12 / U13..U18 / U19..U24 (outer -> inner).
-    // Right cols 6..11 are shifted by one matrix row so the innermost N keys come from the
-    // following matrix row (U6 / U11-12 / U16-18 / U21-24) and the rest from the same row.
+    //
+    // Each cell below = the kscan event that fires when the physical key at that keymap
+    // position is pressed. Right-half values were obtained by typing each physical key on
+    // the assembled right PCB and noting which keymap symbol came out. The left half
+    // assumes the PCB is used with point symmetry (rotated 180° between the two halves),
+    // so left[r][c] ≡ right[3-r][5-c]. Left half still needs verification once both halves run.
+    //
+    // RC(5, X) entries are dummies for physical positions that never produced an event
+    // (4 spots per half — same physical component is dead on both sides since they share
+    // the PCB design). PIN6 = gpios[5] does not drive any matrix row, so kscan never
+    // reports (5, X) — these are safe non-firing placeholders.
     default_transform: keymap_transform0 {
         compatible = "zmk,matrix-transform";
         rows = <6>;
         columns = <12>;
         map = <
-RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5) RC(1,0)    RC(1,6) RC(0,7) RC(0,8) RC(0,9)  RC(0,10) RC(0,11)
-RC(1,2) RC(1,3) RC(1,4) RC(1,5) RC(2,0) RC(2,1)    RC(2,6) RC(2,7) RC(1,8) RC(1,9)  RC(1,10) RC(1,11)
-RC(2,3) RC(2,4) RC(2,5) RC(3,0) RC(3,1) RC(3,2)    RC(3,6) RC(3,7) RC(3,8) RC(2,9)  RC(2,10) RC(2,11)
-RC(3,4) RC(3,5) RC(4,0) RC(4,1) RC(4,2) RC(4,3)    RC(4,6) RC(4,7) RC(4,8) RC(4,9)  RC(3,11) RC(3,10)
+RC(0,1) RC(5,0) RC(0,3) RC(0,4) RC(5,1) RC(4,0)    RC(4,9) RC(3,11) RC(3,10) RC(3,8) RC(3,7) RC(3,6)
+RC(5,2) RC(1,2) RC(1,3) RC(1,4) RC(1,5) RC(4,1)    RC(5,6) RC(2,11) RC(2,10) RC(2,9) RC(2,7) RC(2,6)
+RC(2,0) RC(2,1) RC(2,3) RC(2,4) RC(2,5) RC(5,3)    RC(4,7) RC(1,11) RC(1,10) RC(1,9) RC(1,8) RC(5,7)
+RC(3,0) RC(3,1) RC(3,2) RC(3,4) RC(3,5) RC(4,3)    RC(4,6) RC(5,8)  RC(0,10) RC(0,9) RC(5,9) RC(0,7)
         >;
     };
 
