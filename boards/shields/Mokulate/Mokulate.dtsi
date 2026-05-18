@@ -92,13 +92,12 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,4) RC(3,5) RC(4,3)    RC(4,6) RC(0,11) RC(0,10) RC(
     };
 
     // Charlieplex kscan
-    //   gpios: D2..D7 (active/passive pool, 6 pins -> up to 30 keys per side)
-    //   Note: D1 is NOT used as interrupt-gpios because the PCB's D-1..D-5 diodes
-    //         only allow current to flow FROM D1 TO each row (anode on D1 side).
-    //         So D1 can never sense row activity, and an interrupt would never fire.
-    //         Falling back to polling mode (default poll-period-ms = 1).
+    //   gpios:           D2..D7 (active/passive pool, 6 pins -> up to 30 keys per side)
+    //   interrupt-gpios: D1 (wired to the OR of all charlieplex lines via PCB)
     kscan0: kscan_charlieplex {
         compatible = "zmk,kscan-gpio-charlieplex";
+        wakeup-source;
+        interrupt-gpios = <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
         gpios
             = <&xiao_d 2 GPIO_ACTIVE_HIGH>
             , <&xiao_d 3 GPIO_ACTIVE_HIGH>
