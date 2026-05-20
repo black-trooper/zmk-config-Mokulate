@@ -64,7 +64,7 @@
             22 // Z
         >;
     };
-}
+};
 
 // Trackball input listener (central side - direct processing)
 / {
