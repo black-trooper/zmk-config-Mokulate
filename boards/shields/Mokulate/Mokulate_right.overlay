@@ -1,6 +1,8 @@
 #include "Mokulate.dtsi"
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
+#include <input/processors/runtime-input-processor.dtsi>
+#include <behaviors/battery_history_request.dtsi>
 
 // Right half is the peripheral. Shift charlieplex passive index by 6 so the
 // transform map in Mokulate.dtsi covers both sides in one 6x12 grid.
