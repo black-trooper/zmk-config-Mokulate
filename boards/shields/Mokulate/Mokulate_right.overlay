@@ -53,14 +53,36 @@
     };
 };
 
+/ {
+    zip_temp_layer: zip_temp_layer {
+        compatible = "zmk,input-processor-temp-layer";
+        excluded-positions = <
+            17 // H
+            18 // J
+            19 // K
+            20 // L
+            22 // Z
+        >;
+    };
+}
+
 // Trackball input listener (central side - direct processing)
 / {
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         input-processors =
+            <&mouse_runtime_input_processor>,
+            <&zip_temp_layer 2 10000>, // Auto Mouse Layer
             <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP)>, // XとYを入れ替える
             <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>; // 上下左右を合わせるためXを反転
+
+        scroller {
+            layers = <1>;
+            input-processors =
+                <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+                <&zip_xy_to_scroll_mapper>;
+        };
     };
 };
 

@@ -7,15 +7,37 @@
         compatible = "zmk,keymap";
 
         default_layer {
+            display-name = "Base";
             bindings = <
-&kp ESC    &kp Q     &kp W     &kp E                  &kp R        &kp T                    &kp Y     &kp U      &kp I      &kp O     &kp P      &kp MINUS
-&kp TAB    &kp A     &kp S     &kp D                  &kp F        &kp G                    &kp H     &kp J      &kp K      &kp L     &kp SEMI   &kp APOS
-&kp LSHFT  &kp Z     &kp X     &kp C                  &kp V        &kp B                    &kp N     &kp M      &kp COMMA  &kp DOT   &kp FSLH   &kp RSHFT
-&kp LCTRL  &kp LALT  &kp LGUI  &lt 1 INTERNATIONAL_5  &lt 2 SPACE  &lt 3 INTERNATIONAL_4    &kp BSPC  &kp ENTER  &kp RGUI   &kp RALT  &kp RCTRL  &lt 4 DEL
+&kp Q             &kp W      &kp E         &kp R               &kp T        &none            &none    &kp Y        &kp U  &kp I      &kp O    &kp P
+&kp A             &kp S      &kp D         &kp F               &kp G        &kp LC(N5)       &none    &kp H        &kp J  &kp K      &kp L    &kp SEMICOLON
+&mt LEFT_SHIFT Z  &kp X      &kp C         &kp V               &kp B        &kp LC(N6)       &none    &kp N        &kp M  &kp COMMA  &kp DOT  &mt RIGHT_SHIFT SLASH
+&kp LG(F22)       &kp LCTRL  &kp LEFT_ALT  &mt LEFT_WIN LANG2  &lt 3 SPACE  &lt 5 LANG1      &kp TAB  &lt 4 ENTER  &none  &non       &none    &lt 6 ESCAPE
+            >;
+        };
+
+        SCROLL {
+            display-name = "Scroll";
+            bindings = <
+&none   &none   &none   &none  &none   &none       &none   &none   &none  &none  &none  &none
+&none   &none   &none   &none  &none   &none       &none   &none   &none  &to 0  &none  &none
+&none   &none   &none   &none  &none   &none       &none   &none   &none  &none  &none  &none
+&trans  &trans  &trans  &to 0  &trans  &trans      &trans  &trans  &none  &none  &none  &to 0
+            >;
+        };
+
+        MOUSE {
+            display-name = "Mouse";
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans    &trans    &trans  &trans    &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &mkp MB3  &mkp MB1  &to 1   &mkp MB2  &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans    &trans    &trans  &trans    &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans    &trans    &trans  &trans    &trans
             >;
         };
 
         SYMBOL {
+            display-name = "Symbol";
             bindings = <
 &kp LS(EXCL)  &kp LS(AT)  &kp LS(POUND)  &kp LS(DLLR)  &kp LS(PRCNT)  &none     &none   &kp LS(CARET)  &kp LS(AMPS)  &kp LS(LBRC)  &kp LS(RBRC)  &none
 &kp GRAVE     &kp TILDE   &kp LS(UNDER)  &kp SQT       &kp LS(DQT)    &none     &none   &kp LS(PLUS)   &kp MINUS     &kp LS(LPAR)  &kp LS(RPAR)  &kp LS(PIPE)
@@ -25,6 +47,7 @@
         };
 
         CURSOR {
+            display-name = "Cursor";
             bindings = <
 &none             &none   &none   &kp LC(LA(LEFT))      &kp LC(LA(RIGHT))      &none     &none   &kp PG_UP  &none     &kp UP    &none      &kp LG(LS(N5))
 &kp LG(NUMBER_1)  &none   &none   &kp LC(LA(R))         &kp LC(LA(RET))        &none     &none   &kp PG_DN  &kp LEFT  &kp DOWN  &kp RIGHT  &kp LG(LEFT)
@@ -34,6 +57,7 @@
         };
 
         NUMBER {
+            display-name = "Number";
             bindings = <
 &kp F1   &kp F2   &kp F3  &kp F4  &kp F5  &none     &none   &kp F6  &kp F7  &kp F8  &kp F9  &kp F10
 &kp N1   &kp N2   &kp N3  &kp N4  &kp N5  &none     &none   &kp N6  &kp N7  &kp N8  &kp N9  &kp N0
@@ -43,6 +67,7 @@
         };
 
         BLUETOOTH {
+            display-name = "Bluetooth";
             bindings = <
 &none   &none   &none   &none   &none   &none     &none   &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3   &bt BT_SEL 4
 &none   &none   &none   &none   &none   &none     &none   &none         &none         &none         &studio_unlock &bt BT_CLR
