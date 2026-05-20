@@ -1,21 +1,27 @@
 manifest:
+  defaults:
+    revision: main
   remotes:
-    - name: zmkfirmware
-      url-base: https://github.com/zmkfirmware
-    # Additional modules containing boards/shields/custom code can be listed here as well
-    # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
+    - name: cormoran
+      url-base: https://github.com/cormoran
     - name: sekigon-gonnoc
       url-base: https://github.com/sekigon-gonnoc
   projects:
     - name: zmk
-      remote: zmkfirmware
-      revision: main
+      remote: cormoran
+      revision: v0.3-branch+dya
       import: app/west.yml
+    - name: zmk-module-ble-management
+      remote: cormoran
+    - name: zmk-module-battery-history
+      remote: cormoran
+    - name: zmk-module-settings-rpc
+      remote: cormoran
+    - name: zmk-module-runtime-input-processor
+      remote: cormoran
     - name: zmk-feature-non-lipo-battery-management
       remote: sekigon-gonnoc
-      revision: main
     - name: zmk-driver-paw3222
       remote: sekigon-gonnoc
-      revision: main
   self:
     path: config
