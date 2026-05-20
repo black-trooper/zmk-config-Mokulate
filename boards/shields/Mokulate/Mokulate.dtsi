@@ -99,7 +99,6 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,4) RC(3,5) RC(4,3)    RC(4,6) RC(0,11) RC(0,10) RC(
     //         suspend, so motion cannot wake the SoC).
     kscan0: kscan_charlieplex {
         compatible = "zmk,kscan-gpio-charlieplex";
-        interrupt-gpios = <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
         gpios
             = <&xiao_d 2 GPIO_ACTIVE_HIGH>
             , <&xiao_d 3 GPIO_ACTIVE_HIGH>
