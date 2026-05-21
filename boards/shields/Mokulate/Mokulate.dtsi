@@ -91,14 +91,15 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,4) RC(3,5) RC(4,3)    RC(4,6) RC(0,11) RC(0,10) RC(
         >;
     };
 
-    // Charlieplex kscan
-    //   gpios:           D2..D7 (active/passive pool, 6 pins -> up to 30 keys per side)
-    //   interrupt-gpios: D1 (wired to the OR of all charlieplex lines via PCB)
-    //   Note: intentionally NO wakeup-source — adding it puts the SoC into deep sleep
-    //         which kills the trackball SPI3 (PAW3222 driver disconnects MOTION IRQ on
-    //         suspend, so motion cannot wake the SoC).
+    // Charlieplex kscan. gpios D2..D7 form the active/passive pool. D1 is
+    // wired to the OR of all charlieplex lines on the PCB and used as the
+    // interrupt input; marking it as wakeup-source lets a key press wake the
+    // SoC from System OFF (the trackball cannot wake because the PAW3222
+    // driver disconnects MOTION IRQ on PM suspend).
     kscan0: kscan_charlieplex {
         compatible = "zmk,kscan-gpio-charlieplex";
+        wakeup-source;
+        interrupt-gpios = <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
         gpios
             = <&xiao_d 2 GPIO_ACTIVE_HIGH>
             , <&xiao_d 3 GPIO_ACTIVE_HIGH>

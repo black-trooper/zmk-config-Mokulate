@@ -1,6 +1,5 @@
 #include "Mokulate.dtsi"
 #include <input/processors.dtsi>
-#include <dt-bindings/zmk/input_transform.h>
 #include <input/processors/runtime-input-processor.dtsi>
 #include <behaviors/battery_history_request.dtsi>
 
@@ -50,38 +49,41 @@
         spi-max-frequency = <2000000>;
         /* MOTION: P1.15 */
         irq-gpios = <&gpio1 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        // PAW3222 CPI. Hardware default ~800 felt sluggish, 1900 felt too
+        // high. RES_STEP=38, valid range 608..4826 (multiples of 38).
+        res-cpi = <1140>;
     };
 };
 
-/ {
-    zip_temp_layer: zip_temp_layer {
-        compatible = "zmk,input-processor-temp-layer";
-        excluded-positions = <
-            17 // H
-            18 // J
-            19 // K
-            20 // L
-            22 // Z
-        >;
-    };
+// Trackball runtime processor defaults (DYA Studio で上書き可能)
+&mouse_runtime_input_processor {
+    xy-swap-enabled;
+    y-invert;
+    temp-layer-enabled;
+    temp-layer = <2>;
+    temp-layer-deactivation-delay-ms = <10000>;
+    // Auto Mouse Layer を解除しないキー（旧 excluded-positions 相当）
+    temp-layer-keep-keycodes = <
+        LEFT_CONTROL LEFT_SHIFT LEFT_ALT LEFT_GUI
+        RIGHT_CONTROL RIGHT_SHIFT RIGHT_ALT RIGHT_GUI
+        H J K L Z
+    >;
 };
 
-// Trackball input listener (central side - direct processing)
+&scroll_runtime_input_processor {
+    y-invert;
+};
+
+// Trackball input listener (central side)
 / {
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        input-processors =
-            <&mouse_runtime_input_processor>,
-            <&zip_temp_layer 2 10000>, // Auto Mouse Layer
-            <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP)>, // XとYを入れ替える
-            <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>; // 上下左右を合わせるためXを反転
+        input-processors = <&mouse_runtime_input_processor>;
 
         scroller {
             layers = <1>;
-            input-processors =
-                <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-                <&zip_xy_to_scroll_mapper>;
+            input-processors = <&zip_xy_swap_mapper &zip_xy_to_scroll_mapper &scroll_runtime_input_processor>;
         };
     };
 };

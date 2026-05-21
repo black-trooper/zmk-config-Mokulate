@@ -6,6 +6,8 @@ manifest:
       url-base: https://github.com/cormoran
     - name: sekigon-gonnoc
       url-base: https://github.com/sekigon-gonnoc
+    - name: black-trooper
+      url-base: https://github.com/black-trooper
   projects:
     - name: zmk
       remote: cormoran
@@ -22,6 +24,14 @@ manifest:
     - name: zmk-feature-non-lipo-battery-management
       remote: sekigon-gonnoc
     - name: zmk-driver-paw3222
-      remote: sekigon-gonnoc
+      # Fork of sekigon-gonnoc/zmk-driver-paw3222 with patches for the PAW3222
+      # 1-frame cursor lag. Working clone lives in ~/git/zmk-driver-paw3222
+      # with origin -> this URL and upstream -> sekigon-gonnoc.
+      # Upstream sync:
+      #   cd ~/git/zmk-driver-paw3222
+      #   git fetch upstream && git merge upstream/main   # or rebase
+      #   git push origin main
+      #   cd <config repo> && west update
+      remote: black-trooper
   self:
     path: config
