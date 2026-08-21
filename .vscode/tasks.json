@@ -1,0 +1,56 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "West Build (Mokulate Left)",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "west build -p=always -s zmk/app -d build/left -b seeeduino_xiao_ble -- -DZMK_CONFIG=\"${workspaceFolder}/config\" -DSHIELD=Mokulate_left && cp build/left/zephyr/zmk.uf2 build/Mokulate_left-xiao_ble-mk.uf2"
+      ],
+      "group": "build",
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "West Build (Mokulate Right)",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "west build -p=always -s zmk/app -d build/right -b seeeduino_xiao_ble -- -DZMK_CONFIG=\"${workspaceFolder}/config\" -DSHIELD=Mokulate_right -DSNIPPET=studio-rpc-usb-uart && cp build/right/zephyr/zmk.uf2 build/Mokulate_right-xiao_ble-zmk.uf2"
+      ],
+      "group": "build",
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "West Build (Settings Reset)",
+      "type": "shell",
+      "command": "west",
+      "args": [
+        "build",
+        "-p=always",
+        "-s", "zmk/app",
+        "-d", "build/settings-reset",
+        "-b", "seeeduino_xiao_ble",
+        "--",
+        "-DZMK_CONFIG=${workspaceFolder}/config",
+        "-DSHIELD=settings_reset"
+      ],
+      "group": "build",
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "West Build (All)",
+      "dependsOn": [
+        "West Build (Mokulate Left)",
+        "West Build (Mokulate Right)",
+        "West Build (Settings Reset)"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
