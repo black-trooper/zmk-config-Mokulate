@@ -9,19 +9,46 @@ manifest:
   projects:
     - name: zmk
       remote: cormoran
-      revision: v0.3-branch+dya
-      import: app/west.yml
+      revision: main+dya
+      import:
+        file: app/west.yml
+    - name: zephyr
+      remote: cormoran
+      revision: v4.1.0+zmk-fixes+nrf-half-duplex-uart
+      clone-depth: 1
+      import:
+        name-blocklist:
+          - ci-tools
+          - hal_altera
+          - hal_cypress
+          - hal_infineon
+          - hal_microchip
+          - hal_nxp
+          - hal_openisa
+          - hal_xtensa
+          - hal_st
+          - hal_ti
+          - loramac-node
+          - mcuboot
+          - mcumgr
+          - net-tools
+          - openthread
+          - edtt
+          - trusted-firmware-m
+    - name: zmk-feature-custom-settings
+      remote: cormoran
+      revision: main
+    - name: zmk-feature-fast-keymap
+      remote: cormoran
+      revision: main
     - name: zmk-module-ble-management
       remote: cormoran
-      revision: zmk-v0.3.0.0
     - name: zmk-module-battery-history
       remote: cormoran
     - name: zmk-module-settings-rpc
       remote: cormoran
-      revision: zmk-v0.3.0.0
     - name: zmk-module-runtime-input-processor
       remote: cormoran
-      revision: zmk-v0.3.0.0
     - name: zmk-feature-non-lipo-battery-management
       remote: sekigon-gonnoc
     - name: zmk-driver-paw3222
