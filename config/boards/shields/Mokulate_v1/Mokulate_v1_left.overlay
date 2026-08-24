@@ -1,21 +1,4 @@
-#include "Mokulate.dtsi"
-
-/ {
-    chosen {
-        zmk,battery = &non_lipo_battery;
-    };
-
-    // Disable default Xiao BLE battery monitoring (uses AIN7 with voltage divider)
-    vbatt: vbatt {
-        status = "disabled";
-    };
-
-    // Non-LiPo battery on AIN0 (D0/P0.02) - direct connection, no voltage divider
-    non_lipo_battery: non_lipo_battery {
-        compatible = "zmk,non-lipo-battery";
-        io-channels = <&adc 0>;
-    };
-};
+#include "../Mokulate_v2/Mokulate_v2.dtsi"
 
 &kscan0 {
     col-gpios

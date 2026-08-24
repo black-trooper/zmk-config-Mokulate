@@ -1,4 +1,4 @@
-#include "Mokulate.dtsi"
+#include "Mokulate_v2.dtsi"
 #include <input/processors.dtsi>
 #include <input/processors/runtime-input-processor.dtsi>
 #include <behaviors/battery_history_request.dtsi>

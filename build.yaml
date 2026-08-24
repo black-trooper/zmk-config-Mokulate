@@ -1,11 +1,21 @@
 # GitHub Actions build matrix.
-# Board name `seeeduino_xiao_ble` is the ZMK v0.3-era id (no `//zmk` qualifier).
+# Use ZMK's board variant so the ZMK-specific DTS and defconfig are selected.
 ---
 include:
-  - board: seeeduino_xiao_ble
-    shield: Mokulate_left
-  - board: seeeduino_xiao_ble
-    shield: Mokulate_right
+  - board: xiao_ble//zmk
+    shield: Mokulate_v2_left
+    artifact-name: Mokulate_v2_left-xiao_ble
+  - board: xiao_ble//zmk
+    shield: Mokulate_v2_right
     snippet: studio-rpc-usb-uart
-  - board: seeeduino_xiao_ble
+    artifact-name: Mokulate_v2_right-xiao_ble
+  - board: xiao_ble//zmk
+    shield: Mokulate_v1_left
+    artifact-name: Mokulate_v1_left-xiao_ble
+  - board: xiao_ble//zmk
+    shield: Mokulate_v1_right
+    snippet: studio-rpc-usb-uart
+    artifact-name: Mokulate_v1_right-xiao_ble
+  - board: xiao_ble//zmk
     shield: settings_reset
+    artifact-name: Mokulate_settings_reset-xiao_ble

@@ -1,7 +1,7 @@
 {
   "name": "ZMK Build Environment",
   "image": "zmkfirmware/zmk-build-arm:stable",
-  "postCreateCommand": "if [ ! -d .west ]; then west init -l config; fi && west update",
+  "postCreateCommand": "if [ ! -d .west ]; then west init -l config; fi && west update && west zephyr-export",
   "customizations": {
     "vscode": {
       "extensions": [

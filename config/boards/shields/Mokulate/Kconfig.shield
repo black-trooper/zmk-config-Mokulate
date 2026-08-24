@@ -1,5 +1,0 @@
-config MOKULATE_LEFT
-    def_bool $(shields_list_contains,Mokulate_left)
-
-config MOKULATE_RIGHT
-    def_bool $(shields_list_contains,Mokulate_right)
