@@ -1,11 +1,11 @@
 file_format: "1"
-id: Mokulate
-name: Mokulate
+id: Mokulate_v1
+name: Mokulate v1
 type: shield
 url: https://github.com/black-trooper/zmk-config-Mokulate
 requires: [xiao_ble]
 features:
   - keys
 siblings:
-  - Mokulate_left
-  - Mokulate_right
+  - Mokulate_v1_left
+  - Mokulate_v1_right

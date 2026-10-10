@@ -1,1 +1,49 @@
+# ==========================================
+# ZMK / Zephyr Build Artifacts
+# ==========================================
+# west build コマンドで生成されるビルド出力（.uf2 ファイル等）
+/build/
+/build-*/
+
+# ZMKソースやZephyr RTOS本体のダウンロード先
+/zmk/
+/zephyr/
+/modules/
+/tools/
+/bootloader/
+
+# west 内部管理用フォルダ
+/.west/
+
+# Python 仮想環境
+/venv/
+/.venv/
+/env/
+/bin/
+
+# ==========================================
+# System & Editor Files
+# ==========================================
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# VS Code
+# (※ .vscode/tasks.json や .devcontainer はGit管理下に置くため除外していません)
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/settings.json
+*.code-workspace
+
+# Editor temporary files
+*.swp
+*.swo
+*~

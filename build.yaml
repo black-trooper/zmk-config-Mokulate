@@ -1,28 +1,21 @@
-# This file generates the GitHub Actions matrix.
-# For simple board + shield combinations, add them to the top level board and
-# shield arrays, for more control, add individual board + shield combinations
-# to the `include` property. You can also use the `cmake-args` property to
-# pass flags to the build command, `snippet` to add a Zephyr snippet, and
-# `artifact-name` to assign a name to distinguish build outputs from each other:
-#
-# board: [ "nice_nano_v2" ]
-# shield: [ "corne_left", "corne_right" ]
-# include:
-#   - board: bdn9_rev2
-#   - board: nice_nano_v2
-#     shield: reviung41
-#   - board: nice_nano_v2
-#     shield: corne_left
-#     snippet: studio-rpc-usb-uart
-#     cmake-args: -DCONFIG_ZMK_STUDIO=y
-#     artifact-name: corne_left_with_studio
-#
+# GitHub Actions build matrix.
+# Use ZMK's board variant so the ZMK-specific DTS and defconfig are selected.
 ---
 include:
   - board: xiao_ble//zmk
-    shield: Mokulate_left
+    shield: Mokulate_v2_left
+    artifact-name: Mokulate_v2_left-xiao_ble
   - board: xiao_ble//zmk
-    shield: Mokulate_right
+    shield: Mokulate_v2_right
     snippet: studio-rpc-usb-uart
+    artifact-name: Mokulate_v2_right-xiao_ble
+  - board: xiao_ble//zmk
+    shield: Mokulate_v1_left
+    artifact-name: Mokulate_v1_left-xiao_ble
+  - board: xiao_ble//zmk
+    shield: Mokulate_v1_right
+    snippet: studio-rpc-usb-uart
+    artifact-name: Mokulate_v1_right-xiao_ble
   - board: xiao_ble//zmk
     shield: settings_reset
+    artifact-name: Mokulate_settings_reset-xiao_ble

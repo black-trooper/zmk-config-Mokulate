@@ -1,4 +1,4 @@
-#include "Mokulate.dtsi"
+#include "../Mokulate_v2/Mokulate_v2.dtsi"
 
 &default_transform {
     col-offset = <6>;
